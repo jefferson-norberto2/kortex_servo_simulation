@@ -7,10 +7,11 @@ servo_node:
       is_primary_planning_scene_monitor: true
       
       # Input/Output settings
-      command_in_type: "speed_units"
+      command_in_type: "unitless"
       command_out_type: "trajectory_msgs/JointTrajectory"
       publish_period: 0.034
       max_expected_latency: 0.2
+      incoming_command_timeout: 0.2
       
       # Topics
       command_out_topic: "/joint_trajectory_controller/joint_trajectory"
@@ -27,11 +28,11 @@ servo_node:
       collision_check_rate: 5.0
       
       # Speed limits
-      linear_command_scale_factor: 0.05
-      angular_command_scale_factor: 0.05
+      linear_command_scale_factor: 0.15
+      angular_command_scale_factor: 0.15
       
       # Singularity configuration
-      lower_singularity_threshold: 100.0
-      hard_stop_singularity_threshold: 1000.0
+      lower_singularity_threshold: 50.0
+      hard_stop_singularity_threshold: 100.0
       joint_limit_margin: 0.1
       leaving_singularity_threshold_multiplier: 2.0

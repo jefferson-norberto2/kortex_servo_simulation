@@ -56,7 +56,7 @@ def generate_launch_description():
         executable='twist_to_stamped',
         name='twist_to_stamped',
         output='screen',
-        parameters=[{'use_sim_time': True}], # <--- Relógio da simulação ativado aqui
+        parameters=[{'use_sim_time': True}],
     )
 
     servo_node = Node(
@@ -68,7 +68,7 @@ def generate_launch_description():
             robot_description,
             robot_description_semantic,
             robot_description_kinematics,
-            {'use_sim_time': True}          # <--- Relógio da simulação ativado aqui
+            {'use_sim_time': True}          
         ],
         output='screen'
     )

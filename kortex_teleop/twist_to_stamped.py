@@ -79,11 +79,6 @@ class TwistToTwistStamped(Node):
             self.get_logger().error(f'Failed to activate Twist mode: {e}')
 
     def listener_callback(self, msg: Twist):
-        # Only log the twist if we are receiving non-zero commands to avoid spam
-        if msg.linear.x != 0.0 or msg.linear.y != 0.0 or msg.linear.z != 0.0 or \
-           msg.angular.x != 0.0 or msg.angular.y != 0.0 or msg.angular.z != 0.0:
-            self.get_logger().debug(f'Received Twist message: {msg}')
-            
         stamped_msg = TwistStamped()
         stamped_msg.header.stamp = self.get_clock().now().to_msg()
         stamped_msg.header.frame_id = self.frame_id
