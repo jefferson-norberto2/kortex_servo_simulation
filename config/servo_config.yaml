@@ -1,0 +1,37 @@
+servo_node:
+  ros__parameters:
+    use_sim_time: true
+    
+    moveit_servo:
+      move_group_name: "arm"
+      is_primary_planning_scene_monitor: true
+      
+      # Input/Output settings
+      command_in_type: "speed_units"
+      command_out_type: "trajectory_msgs/JointTrajectory"
+      publish_period: 0.034
+      max_expected_latency: 0.2
+      
+      # Topics
+      command_out_topic: "/joint_trajectory_controller/joint_trajectory"
+      joint_topic: "/joint_states"
+      status_topic: "/servo_node/status"
+      cartesian_command_in_topic: "/servo_node/delta_twist_cmds"
+      
+      # Frames
+      robot_link_command_frame: "base_link"
+      ee_frame_name: "tool_frame"
+      
+      # Collision checking
+      check_collisions: true
+      collision_check_rate: 5.0
+      
+      # Speed limits
+      linear_command_scale_factor: 0.05
+      angular_command_scale_factor: 0.05
+      
+      # Singularity configuration
+      lower_singularity_threshold: 100.0
+      hard_stop_singularity_threshold: 1000.0
+      joint_limit_margin: 0.1
+      leaving_singularity_threshold_multiplier: 2.0
