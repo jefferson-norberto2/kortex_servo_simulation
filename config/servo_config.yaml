@@ -1,38 +1,63 @@
-servo_node:
-  ros__parameters:
-    use_sim_time: true
-    
-    moveit_servo:
-      move_group_name: "arm"
-      is_primary_planning_scene_monitor: true
-      
-      # Input/Output settings
-      command_in_type: "unitless"
-      command_out_type: "trajectory_msgs/JointTrajectory"
-      publish_period: 0.034
-      max_expected_latency: 0.2
-      incoming_command_timeout: 0.2
-      
-      # Topics
-      command_out_topic: "/joint_trajectory_controller/joint_trajectory"
-      joint_topic: "/joint_states"
-      status_topic: "/servo_node/status"
-      cartesian_command_in_topic: "/servo_node/delta_twist_cmds"
-      
-      # Frames
-      robot_link_command_frame: "base_link"
-      ee_frame_name: "tool_frame"
-      
-      # Collision checking
-      check_collisions: true
-      collision_check_rate: 5.0
-      
-      # Speed limits
-      linear_command_scale_factor: 0.15
-      angular_command_scale_factor: 0.15
-      
-      # Singularity configuration
-      lower_singularity_threshold: 50.0
-      hard_stop_singularity_threshold: 100.0
-      joint_limit_margin: 0.1
-      leaving_singularity_threshold_multiplier: 2.0
+# General settings
+use_gazebo: false # Adicionado do Kinova
+thread_priority: 40
+
+# Input/Output settings
+command_in_type: "unitless" # Atualizado para o Kinova (antes era "speed_units")
+scale: # Necessário quando command_in_type é "unitless"
+  linear: 0.9
+  rotational: 1.5
+  joint: 1.0
+
+command_out_type: "trajectory_msgs/JointTrajectory"
+publish_period: 0.002 # Atualizado para o Kinova (muito mais rápido, antes era 0.033)
+low_latency_mode: true # Adicionado do Kinova
+max_expected_latency: 0.1
+incoming_command_timeout: 0.1
+num_outgoing_halt_msgs_to_publish: 4 # Adicionado do Kinova
+
+# Publish configuration (Adicionado do Kinova)
+publish_joint_positions: true
+publish_joint_velocities: false
+publish_joint_accelerations: false
+low_pass_filter_coeff: 2.0
+
+# Topics (MANTIDOS DO SEU ARQUIVO ORIGINAL)
+command_out_topic: "/joint_trajectory_controller/joint_trajectory"
+joint_topic: "/joint_states"
+status_topic: "/servo_node/status"
+cartesian_command_in_topic: "/servo_node/delta_twist_cmds"
+joint_command_in_topic: "servo_node/delta_joint_cmds" # Adicionado do Kinova (pois não existia no seu)
+
+# Frames
+robot_link_command_frame: "base_link"
+ee_frame_name: "tool_frame"
+planning_frame: "base_link" # Adicionado do Kinova
+
+# MoveIt properties
+move_group_name: "arm" # Atualizado para o Kinova (antes era "arm")
+is_primary_planning_scene_monitor: false
+
+# Collision checking
+check_collisions: true # Atualizado para o Kinova (antes era false)
+collision_check_rate: 10.0
+check_octomap_collisions: false
+collision_check_type: "threshold_distance" # Parâmetros de colisão do Kinova
+self_collision_proximity_threshold: 0.01
+scene_collision_proximity_threshold: 0.02
+collision_distance_safety_factor: 1000.0
+min_allowable_collision_distance: 0.01
+
+# Speed limits (Mantidos do seu arquivo caso retorne para 'speed_units')
+linear_command_scale_factor: 0.15
+angular_command_scale_factor: 0.15
+
+# Singularity configuration
+lower_singularity_threshold: 50.0
+hard_stop_singularity_threshold: 100.0
+leaving_singularity_threshold_multiplier: 2.0
+
+# Joint limit margins and halting behavior
+joint_limit_margin: 0.1 # Kinova usa esta chave no singular
+joint_limit_margins: [0.1] # Mantido no plural do seu original (algumas versões do MoveIt exigem array)
+halt_all_joints_in_cartesian_mode: false

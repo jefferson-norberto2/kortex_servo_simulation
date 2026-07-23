@@ -25,8 +25,6 @@ class TwistToTwistStamped(Node):
         self.cli = self.create_client(ServoCommandType, '/servo_node/switch_command_type')
         self.frame_id = 'base_link' 
         
-        # Setup a timer to run the startup sequence once after 1 second
-        # This delay allows ROS 2 to establish topic connections before publishing
         self.startup_timer = self.create_timer(1.0, self.startup_sequence)
         self.startup_completed = False
 
