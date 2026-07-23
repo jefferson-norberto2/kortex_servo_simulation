@@ -1,6 +1,6 @@
-# Kortex Teleop for Kinova Gen3 Lite
+# Kortex Servo Simulation for Kinova Gen3 Lite
 
-This package provides a teleoperation interface for the Kinova Gen3 Lite robotic arm using ROS 2 Jazzy and MoveIt 2 Servo. It allows you to control the robot in simulation (and real hardware) using standard keyboard Twist commands.
+This package provides a servo node interface for the Kinova Gen3 Lite robotic arm using ROS 2 Jazzy and MoveIt 2 Servo. It allows you to control the robot in simulation (and real hardware) using Twist commands in Gazebo.
 
 ## Overview
 
