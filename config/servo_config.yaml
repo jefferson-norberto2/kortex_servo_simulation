@@ -1,5 +1,5 @@
 # General settings
-use_gazebo: false # Adicionado do Kinova
+use_gazebo: true # Adicionado do Kinova
 thread_priority: 40
 
 # Input/Output settings
