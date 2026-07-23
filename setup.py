@@ -2,7 +2,7 @@ import os
 from glob import glob
 from setuptools import find_packages, setup
 
-package_name = 'kortex_teleop'
+package_name = 'kortex_servo_simulation'
 
 setup(
     name=package_name,
@@ -17,9 +17,9 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='your_name',
-    maintainer_email='your_email@example.com',
-    description='Teleoperation package for Kinova Gen3 Lite',
+    maintainer='jefferson-norberto2',
+    maintainer_email='jmn@cin.ufpe.br',
+    description='This package allow use moveit servo on kinova gen3 lite to send Twist commands to the Gazebo simulation.',
     license='Apache-2.0',
     tests_require=['pytest'],
     entry_points={
