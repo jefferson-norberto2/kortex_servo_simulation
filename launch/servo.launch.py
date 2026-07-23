@@ -7,7 +7,6 @@ from moveit_configs_utils import MoveItConfigsBuilder
 
 def generate_launch_description():
     # 1. Use the MoveItConfigsBuilder to neatly load all robot descriptions and kinematics
-    # This automatically runs xacro on the main URDF and loads SRDF, Kinematics, and Joint Limits
     moveit_config = (
         MoveItConfigsBuilder(
             robot_name="gen3_lite",
@@ -20,13 +19,13 @@ def generate_launch_description():
         ))
         .robot_description_semantic(file_path="config/gen3_lite.srdf")
         .robot_description_kinematics(file_path="config/kinematics.yaml")
-        .joint_limits(file_path="config/joint_limits.yaml") # Crucial for servo smoothing
+        .joint_limits(file_path="config/joint_limits.yaml")
         .to_moveit_configs()
     )
 
     # 2. Load the servo configuration parameters
     servo_yaml_path = os.path.join(
-        get_package_share_directory('kortex_teleop'),
+        get_package_share_directory('kortex_servo_simulation'),
         'config',
         'servo_config.yaml'
     )
@@ -35,15 +34,6 @@ def generate_launch_description():
     
     # Wrap in moveit_servo namespace as required by the C++ node
     servo_params = {"moveit_servo": servo_yaml}
-
-    # 3. Define the python teleop node
-    twist_to_stamped_node = Node(
-        package='kortex_teleop',
-        executable='twist_to_stamped',
-        name='twist_to_stamped',
-        output='screen',
-        parameters=[{'use_sim_time': True}],
-    )
 
     # 4. Define the Servo node, passing all configurations extracted by the builder
     servo_node = Node(
@@ -62,6 +52,5 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        twist_to_stamped_node,
         servo_node
     ])

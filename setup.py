@@ -24,7 +24,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'twist_to_stamped = kortex_teleop.twist_to_stamped:main',
+            'keyboard_servo_example = kortex_servo_simulation.keyborad_servo_example:main',
         ],
     },
 )
